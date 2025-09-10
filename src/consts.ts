@@ -1,24 +1,27 @@
-import type { IconMap, SocialLink, Site } from '@/types'
+import type { IconMap, SocialLink, Site, SubstatsItem } from '@/types'
 
 export const SITE: Site = {
-  title: 'astro-erudite',
-  description:
-    'astro-erudite is a opinionated, unstyled blogging template—built with Astro, Tailwind, and shadcn/ui.',
-  href: 'https://astro-erudite.vercel.app',
-  author: 'jktrn',
-  locale: 'en-US',
-  featuredPostCount: 2,
+  title: "lkw123's Blog",
+  description: 'Yet another personal blog',
+  href: 'https://blog.lkwplus.com',
+  author: 'lkw123',
+  locale: 'zh-CN',
+  featuredPostCount: 3,
   postsPerPage: 3,
 }
 
 export const NAV_LINKS: SocialLink[] = [
   {
-    href: '/blog',
-    label: 'blog',
+    href: '/posts',
+    label: 'posts',
   },
   {
-    href: '/authors',
-    label: 'authors',
+    href: '/tags',
+    label: 'tags',
+  },
+  {
+    href: '/memos',
+    label: 'memos',
   },
   {
     href: '/about',
@@ -89,3 +92,71 @@ export const DEVOPS_SKILLS = [
 ]
 
 export const MISC_SKILLS = ['Linux', 'MacOS', 'GraphQL', 'REST', 'Vim', 'Markdown']
+
+// Substats items for about page
+export const SUBSTATS: SubstatsItem[] = [
+  {
+    platform: 'GitHub',
+    icon: 'lucide:github',
+    link: 'https://github.com/synthpop123',
+    text: 'followers',
+    // api: 'github/synthpop123'
+    count: 14,
+  },
+  {
+    platform: 'Twitter/X',
+    icon: 'lucide:twitter',
+    link: 'https://x.com/whoamamamiii',
+    text: 'followers',
+    // api: 'twitter/whoamamamiii',
+    count: 12,
+  },
+  {
+    platform: 'Telegram',
+    icon: 'tabler-brand-telegram',
+    link: 'https://diary.lkwplus.com',
+    text: 'subscribers',
+    // api: 'telegram/lkw123_channel'
+    count: 2,
+  },
+  {
+    platform: 'Instagram',
+    icon: 'lucide:instagram',
+    link: 'https://www.instagram.com/whoamamiii',
+    text: 'followers',
+    // api: 'instagram/whoamamiii'
+    count: 46,
+  },
+  {
+    platform: 'Bilibili',
+    icon: 'ri-bilibili-line',
+    link: 'https://space.bilibili.com/229550302',
+    text: 'subscribers',
+    // api: 'bilibili/229550302',
+    count: 240,
+  },
+  {
+    platform: 'Zhihu',
+    icon: 'ri-zhihu-line',
+    link: 'https://www.zhihu.com/people/lkw555',
+    text: 'followers',
+    // api: 'zhihu/lkw555'
+    count: 38,
+  },
+  {
+    platform: 'Steam',
+    icon: 'ri-steam-line',
+    link: 'https://steamcommunity.com/id/nameless555/',
+    text: 'games',
+    // api: 'steamgames/76561199075380335'
+    count: 19,
+  },
+  {
+    platform: 'Mastodon',
+    icon: 'iconoir-mastodon',
+    link: 'https://mastodon.lkwplus.com/@lkw123',
+    text: 'followers',
+    // api: 'mastodon/lkw123@lkwplus.com'
+    count: 0,
+  },
+]

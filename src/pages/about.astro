@@ -2,7 +2,7 @@
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Link from '@/components/Link.astro'
 import PageHead from '@/components/PageHead.astro'
-import ProjectCard from '@/components/ProjectCard.astro'
+// import ProjectCard from '@/components/ProjectCard.astro'
 import SkillLayout from '@/components/SkillLayout.astro'
 import Substats from '@/components/Substats.astro'
 import Timeline from '@/components/Timeline.astro'
@@ -29,26 +29,33 @@ const projects = await getAllProjects()
       <div class="prose">
         <h2 class="mb-4 text-2xl font-medium">About Me</h2>
         <ul class="prose prose-neutral dark:prose-invert mb-8">
-          <li>INTP-T (<b>I</b> <b>N</b>eed <b>T</b>o slee<b>P</b>)</li>
           <li>Male | Movie | Music | Minimalist</li>
           <li>Keep Learning & Be Creative</li>
         </ul>
       </div>
 
-      <h2 class="mb-4 text-2xl font-medium">Projects</h2>
+      <!-- <h2 class="mb-4 text-2xl font-medium">Projects</h2>
       <p class="prose prose-neutral dark:prose-invert mb-8">
         Under construction...
       </p>
       <div class="flex flex-col gap-4">
         {projects.map((project) => <ProjectCard project={project} />)}
-      </div>
+      </div> -->
 
       <article class="prose prose-neutral dark:prose-invert max-w-none">
-        <h2 class="mb-4 text-2xl font-medium">Social Networks</h2>
+        <h2 class="mb-4 text-2xl font-medium">Elsewhere</h2>
         <p class="prose prose-neutral dark:prose-invert mb-8">
-          You can find me on these places:
+          Casually lurk on these places:
         </p>
         <Substats />
+
+        <h2 class="mb-4 text-2xl font-medium">Tech Skills</h2>
+        <SkillLayout title="Languages" skills={LANGUAGES_SKILLS} />
+        <SkillLayout title="Frontend" skills={FRONTEND_SKILLS} />
+        <SkillLayout title="Backend" skills={BACKEND_SKILLS} />
+        <SkillLayout title="Databases" skills={DATABASES_SKILLS} />
+        <SkillLayout title="DevOps" skills={DEVOPS_SKILLS} />
+        <SkillLayout title="Misc" skills={MISC_SKILLS} />
 
         <h2 class="mb-4 text-2xl font-medium">Education</h2>
         <Timeline
@@ -65,13 +72,6 @@ const projects = await getAllProjects()
             },
           ]}
         />
-        <h2 class="mb-4 text-2xl font-medium">Tech Skills</h2>
-        <SkillLayout title="Languages" skills={LANGUAGES_SKILLS} />
-        <SkillLayout title="Frontend" skills={FRONTEND_SKILLS} />
-        <SkillLayout title="Backend" skills={BACKEND_SKILLS} />
-        <SkillLayout title="Databases" skills={DATABASES_SKILLS} />
-        <SkillLayout title="DevOps" skills={DEVOPS_SKILLS} />
-        <SkillLayout title="Misc" skills={MISC_SKILLS} />
 
         <h2 class="mb-4 text-2xl font-medium">About this site</h2>
         <ul class="prose prose-neutral dark:prose-invert mb-8">
