@@ -16,6 +16,7 @@ const author =
   post.data.authors && post.data.authors.length > 0
     ? post.data.authors.join(', ')
     : SITE.author
+const katex = post.data.katex
 ---
 
 <title>{`${title} | ${SITE.title}`}</title>
@@ -57,4 +58,15 @@ const author =
     post.data.tags.map((tag: string) => {
       return <meta property="article:tag" content={tag} />
     })
+}
+
+{
+  katex && (
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css"
+      integrity="sha384-5TcZemv2l/9On385z///+d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP"
+      crossorigin="anonymous"
+    />
+  )
 }

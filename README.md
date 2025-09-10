@@ -189,6 +189,8 @@ tags: ['tag1', 'tag2']
 image: './image.png'
 authors: ['author1', 'author2']
 draft: false
+katex: false
+featured: false
 ---
 ```
 
@@ -204,6 +206,8 @@ The blog post schema is defined as follows:
 | `tags`        | `string[]`      | Preferably use kebab-case for these.                                                                                                                                            | Optional |
 | `authors`     | `string[]`      | If the author has a profile, use the id associated with their Markdown file in `src/content/authors/` (e.g. if their file is named `jane-doe.md`, use `jane-doe` in the array). | Optional |
 | `draft`       | `boolean`       | Defaults to `false` if not provided.                                                                                                                                            | Optional |
+| `katex`       | `boolean`       | Posts with $\LaTeX$ math rendering use this flag. Defaults to `false` if not provided.                                                                                                | Optional |
+| `featured`    | `boolean`       | Featured posts are shown on the home page. Defaults to `false` if not provided.                                                                                                | Optional |
 
 ### Authors
 

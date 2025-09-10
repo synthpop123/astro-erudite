@@ -3,6 +3,17 @@ import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Link from '@/components/Link.astro'
 import PageHead from '@/components/PageHead.astro'
 import ProjectCard from '@/components/ProjectCard.astro'
+import SkillLayout from '@/components/SkillLayout.astro'
+import Substats from '@/components/Substats.astro'
+import Timeline from '@/components/Timeline.astro'
+import {
+  BACKEND_SKILLS,
+  DATABASES_SKILLS,
+  DEVOPS_SKILLS,
+  FRONTEND_SKILLS,
+  LANGUAGES_SKILLS,
+  MISC_SKILLS,
+} from '@/consts'
 import Layout from '@/layouts/Layout.astro'
 import { getAllProjects } from '@/lib/data-utils'
 
@@ -11,37 +22,131 @@ const projects = await getAllProjects()
 
 <Layout class="max-w-3xl">
   <PageHead slot="head" title="About" />
-  <Breadcrumbs items={[{ label: 'About', icon: 'lucide:info' }]} />
+  <Breadcrumbs items={[{ label: 'About', icon: 'lucide:landmark' }]} />
 
   <section>
     <div class="min-w-full">
-      <div class="prose mb-8">
-        <p class="mt-0">
-          astro-erudite is an opinionated, unstyled static blogging template
-          that prioritizes simplicity and performance, built with <Link
-            href="https://astro.build"
-            external
-            underline>Astro</Link
-          >, <Link href="https://tailwindcss.com" external underline
-            >Tailwind</Link
-          >, and <Link href="https://ui.shadcn.com" external underline
-            >shadcn/ui</Link
-          >. It provides a clean foundation for your content while being
-          extremely easy to customize.
-        </p>
-        <p>
-          To learn more about the philosophy behind this template, check out the
-          following blog post: <Link
-            href="/blog/the-state-of-static-blogs"
-            underline>The State of Static Blogs in 2024</Link
-          >.
-        </p>
+      <div class="prose">
+        <h2 class="mb-4 text-2xl font-medium">About Me</h2>
+        <ul class="prose prose-neutral dark:prose-invert mb-8">
+          <li>INTP-T (<b>I</b> <b>N</b>eed <b>T</b>o slee<b>P</b>)</li>
+          <li>Male | Movie | Music | Minimalist</li>
+          <li>Keep Learning & Be Creative</li>
+        </ul>
       </div>
 
-      <h2 class="mb-4 text-2xl font-medium">Example Projects Listing</h2>
+      <h2 class="mb-4 text-2xl font-medium">Projects</h2>
+      <p class="prose prose-neutral dark:prose-invert mb-8">
+        Under construction...
+      </p>
       <div class="flex flex-col gap-4">
         {projects.map((project) => <ProjectCard project={project} />)}
       </div>
+
+      <article class="prose prose-neutral dark:prose-invert max-w-none">
+        <h2 class="mb-4 text-2xl font-medium">Social Networks</h2>
+        <p class="prose prose-neutral dark:prose-invert mb-8">
+          You can find me on these places:
+        </p>
+        <Substats />
+
+        <h2 class="mb-4 text-2xl font-medium">Education</h2>
+        <Timeline
+          events={[
+            {
+              date: '2019-09-01',
+              content:
+                "<a href='https://www.pku.edu.cn' target='_blank' class='inline-block transition-colors duration-300 ease-in-out underline decoration-muted-foreground underline-offset-[3px] hover:decoration-foreground text-foreground'>北京大学</a> (PKU) 计算机科学与技术 理学学士",
+            },
+            {
+              date: '2016-09-01',
+              content:
+                "<a href='https://www.hzsdyfz.com.cn' target='_blank' class='inline-block transition-colors duration-300 ease-in-out underline decoration-muted-foreground underline-offset-[3px] hover:decoration-foreground text-foreground'>华中师大一附中</a>",
+            },
+          ]}
+        />
+        <h2 class="mb-4 text-2xl font-medium">Tech Skills</h2>
+        <SkillLayout title="Languages" skills={LANGUAGES_SKILLS} />
+        <SkillLayout title="Frontend" skills={FRONTEND_SKILLS} />
+        <SkillLayout title="Backend" skills={BACKEND_SKILLS} />
+        <SkillLayout title="Databases" skills={DATABASES_SKILLS} />
+        <SkillLayout title="DevOps" skills={DEVOPS_SKILLS} />
+        <SkillLayout title="Misc" skills={MISC_SKILLS} />
+
+        <h2 class="mb-4 text-2xl font-medium">About this site</h2>
+        <ul class="prose prose-neutral dark:prose-invert mb-8">
+          <li>
+            This site is proudly built with <Link
+              href="https://astro.build"
+              class="text-foreground"
+              external
+              underline>Astro</Link
+            >, deployed on <Link
+              href="https://vercel.com"
+              class="text-foreground"
+              external
+              underline>Vercel</Link
+            >.
+          </li>
+          <li>
+            Advanced syntax highlighting powered by <Link
+              href="https://github.com/shikijs/shiki"
+              class="text-foreground"
+              external
+              underline>Shiki</Link
+            > and <Link
+              href="https://rehype-pretty.pages.dev"
+              class="text-foreground"
+              external
+              underline>Rehype Pretty Code</Link
+            >, alongside LaTeX rendering using <Link
+              href="https://katex.org/"
+              class="text-foreground"
+              external
+              underline>KaTeX</Link
+            >.
+          </li>
+          <li>
+            The UI components, such as navigation and buttons, are built with <Link
+              href="https://ui.shadcn.com/"
+              class="text-foreground"
+              external
+              underline>shadcn/ui</Link
+            >, and styling using <Link
+              href="https://tailwindcss.com/"
+              class="text-foreground"
+              external
+              underline>Tailwind CSS</Link
+            >.
+          </li>
+          <li>
+            The source code of this site is available on <Link
+              href="https://github.com/synthpop123/astro-erudite"
+              class="text-foreground"
+              external
+              underline>GitHub</Link
+            >, credits to <Link
+              href="https://github.com/jktrn/astro-erudite"
+              class="text-foreground"
+              external
+              underline>astro-erudite</Link
+            > and <Link
+              href="https://github.com/cworld1/astro-theme-pure"
+              class="text-foreground"
+              external
+              underline>astro-theme-pure</Link
+            >. Thanks! ♥
+          </li>
+          <li>
+            All content in this blog is published under <Link
+              href="https://creativecommons.org/licenses/by-nc-sa/4.0"
+              class="text-foreground"
+              external
+              underline>CC BY-NC-SA 4.0</Link
+            >.
+          </li>
+        </ul>
+      </article>
     </div>
   </section>
 </Layout>

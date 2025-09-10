@@ -28,15 +28,15 @@ export const NAV_LINKS: SocialLink[] = [
 
 export const SOCIAL_LINKS: SocialLink[] = [
   {
-    href: 'https://github.com/jktrn',
+    href: 'https://github.com/synthpop123',
     label: 'GitHub',
   },
   {
-    href: 'https://twitter.com/enscry',
+    href: 'https://x.com/whoamamamiii',
     label: 'Twitter',
   },
   {
-    href: 'mailto:jason@enscribe.dev',
+    href: 'mailto:hi@lkwplus.com',
     label: 'Email',
   },
   {
@@ -53,3 +53,39 @@ export const ICON_MAP: IconMap = {
   Email: 'lucide:mail',
   RSS: 'lucide:rss',
 }
+
+// Tech skills for About page
+export const LANGUAGES_SKILLS = [
+  'C/C++',
+  'Python',
+  'JavaScript',
+  'Node.js',
+  'Rust',
+  'Golang',
+  'Shell Script',
+]
+
+export const FRONTEND_SKILLS = [
+  'HTML',
+  'CSS',
+  'Bootstrap',
+  'Tailwind CSS',
+  'React',
+  'Vue.js',
+  'Astro',
+]
+
+export const BACKEND_SKILLS = ['Flask', 'Django', 'FastAPI', 'Express']
+
+export const DATABASES_SKILLS = ['MySQL', 'PostgreSQL', 'MongoDB', 'Redis']
+
+export const DEVOPS_SKILLS = [
+  'Docker',
+  'Kubernetes',
+  'VMware',
+  'Git/SVN',
+  'Grafana',
+  'Ansible',
+]
+
+export const MISC_SKILLS = ['Linux', 'MacOS', 'GraphQL', 'REST', 'Vim', 'Markdown']

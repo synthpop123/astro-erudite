@@ -120,6 +120,13 @@ export async function getRecentPosts(
   return posts.slice(0, count)
 }
 
+export async function getFeaturedPosts(
+  count: number,
+): Promise<CollectionEntry<'blog'>[]> {
+  const posts = await getAllPosts()
+  return posts.filter((post) => post.data.featured).slice(0, count)
+}
+
 export async function getSortedTags(): Promise<
   { tag: string; count: number }[]
 > {
@@ -163,7 +170,7 @@ export function groupPostsByYear(
   return posts.reduce(
     (acc: Record<string, CollectionEntry<'blog'>[]>, post) => {
       const year = post.data.date.getFullYear().toString()
-      ;(acc[year] ??= []).push(post)
+        ; (acc[year] ??= []).push(post)
       return acc
     },
     {},

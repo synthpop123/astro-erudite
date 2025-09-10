@@ -1,0 +1,138 @@
+---
+import Link from '@/components/Link.astro'
+import { Icon } from 'astro-icon/components'
+
+interface item {
+  platform: string
+  icon: string
+  color?: string
+  link?: string
+  text: string
+  api?: string
+  count?: number
+}
+
+const stats: item[] = [
+  {
+    platform: 'GitHub',
+    icon: 'lucide:github',
+    link: 'https://github.com/synthpop123',
+    text: 'followers',
+    // api: 'github/synthpop123'
+    count: 14,
+  },
+  {
+    platform: 'Twitter/X',
+    icon: 'lucide:twitter',
+    link: 'https://x.com/whoamamamiii',
+    text: 'followers',
+    // api: 'twitter/whoamamamiii',
+    count: 8,
+  },
+  {
+    platform: 'Telegram',
+    icon: 'tabler-brand-telegram',
+    link: 'https://diary.lkwplus.com',
+    text: 'subscribers',
+    // api: 'telegram/lkw123_channel'
+    count: 2,
+  },
+  {
+    platform: 'Instagram',
+    icon: 'lucide:instagram',
+    link: 'https://www.instagram.com/whoamamiii',
+    text: 'followers',
+    // api: 'instagram/whoamamiii'
+    count: 46,
+  },
+  {
+    platform: 'Bilibili',
+    icon: 'ri-bilibili-line',
+    link: 'https://space.bilibili.com/229550302',
+    text: 'subscribers',
+    // api: 'bilibili/229550302',
+    count: 240,
+  },
+  {
+    platform: 'Zhihu',
+    icon: 'ri-zhihu-line',
+    link: 'https://www.zhihu.com/people/lkw555',
+    text: 'followers',
+    // api: 'zhihu/lkw555'
+    count: 38,
+  },
+  {
+    platform: 'Steam',
+    icon: 'ri-steam-line',
+    link: 'https://steamcommunity.com/id/nameless555/',
+    text: 'games',
+    // api:'steamgames/76561199075380335'
+    count: 19,
+  },
+  {
+    platform: 'Mastodon',
+    icon: 'iconoir-mastodon',
+    link: 'https://mastodon.lkwplus.com/@lkw123',
+    text: 'followers',
+    // api:'mastodon/lkw123@mastodon.lkwplus.com'
+    count: 0,
+  },
+]
+
+async function fetchCount(item: item) {
+  if (!item.api) return
+  const response = await fetch(`https://api.swo.moe/stats/${item.api}`)
+  const data = await response.json()
+  if (data.failed) {
+    console.error(data.message)
+  } else {
+    item.count = data.count
+  }
+}
+
+for (let item of stats) {
+  await fetchCount(item)
+}
+---
+
+<div class="grid grid-cols-1 gap-3 rounded-xl border p-2 sm:grid-cols-2 sm:p-3">
+  {
+    stats.map(({ link, platform, icon, color, count, text }) => (
+      <a
+        class="group text-muted-foreground no-underline"
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div class="hover:border-border hover:bg-muted flex items-center gap-3 rounded-lg border border-transparent px-3 py-2 transition-all">
+          {icon && (
+            <Icon
+              name={icon}
+              class="size-6"
+              style={{
+                color: color
+                  ? color
+                  : 'hsl(var(--foreground) / var(--tw-text-opacity))',
+              }}
+            />
+          )}
+          <div class="text-foreground group-hover:text-primary flex-1 transition-colors">
+            {platform}
+          </div>
+          <div class="flex items-center gap-1.5">
+            <samp>{count}</samp>
+            <span class="text-sm font-normal">{text}</span>
+          </div>
+        </div>
+      </a>
+    ))
+  }
+</div>
+<div class="prose-neutral dark:prose-invert mt-2 text-right text-sm">
+  Display real-time; powered by <Link
+    class="text-foreground"
+    href="https://github.com/spencerwooo/substats"
+    external
+    underline>Substats</Link
+  >
+</div>

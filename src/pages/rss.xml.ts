@@ -17,6 +17,12 @@ export async function GET(context: APIContext) {
         pubDate: post.data.date,
         link: `/blog/${post.id}/`,
       })),
+      customData: `
+        <follow_challenge>
+          <feedId>66313772062070784</feedId>
+          <userId>55284220512010240</userId>
+        </follow_challenge>
+      `,
     })
   } catch (error) {
     console.error('Error generating RSS feed:', error)
