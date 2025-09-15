@@ -19,10 +19,10 @@ import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  site: 'https://astro-erudite.vercel.app',
+  site: 'https://blog.lkwplus.com/',
   integrations: [
     expressiveCode({
-      themes: ['github-light', 'github-dark'],
+      themes: ['vitesse-light', 'vitesse-dark'],
       plugins: [pluginCollapsibleSections(), pluginLineNumbers()],
       useDarkModeMediaQuery: false,
       themeCssSelector: (theme) => `[data-theme="${theme.name.split('-')[1]}"]`,
@@ -95,8 +95,8 @@ export default defineConfig({
         rehypePrettyCode,
         {
           theme: {
-            light: 'github-light',
-            dark: 'github-dark',
+            light: 'vitesse-light',
+            dark: 'vitesse-dark',
           },
         },
       ],
