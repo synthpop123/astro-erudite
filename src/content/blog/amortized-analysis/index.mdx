@@ -9,6 +9,8 @@ katex: true
 featured: true
 ---
 
+import Callout from '@/components/Callout.astro'
+
 摊还分析是一种分析一个操作序列中所执行的所有操作的平均时间分析方法。与一般的平均分析方法不同的是，**它不涉及概率的分析，可以保证最坏情况下每个操作的平均性能**。
 
 下面以带有额外 MULTIPOP 操作的栈的实例为例，分别对摊还分析中最常用的三种技术进行介绍。最后定义一种特殊的操作序列，并通过以上三种方法对其摊还代价进行分析。
@@ -144,74 +146,86 @@ $$
 
 假定我们对一个数据结构执行一个由 n 个操作组成的序列，当 i 严格为 2 的幂时，第 i 个操作的代价为 i，否则代价为 1。
 
-### Exercise 1 (CLRS 17.1-3)
+### Exercise 1
 
-> 使用聚合分析确定每个操作的摊还代价。
+<Callout title="CLRS 17.1-3" variant="exercise">
+  使用**聚合分析**确定每个操作的摊还代价。
+  
+  <Callout variant="answer" defaultOpen={true}>
+    Let $n$ be arbitrary, and have the cost of operation $i$ be $c(i)$. Then we have,
 
-**Solution**: Let $n$ be arbitrary, and have the cost of operation $i$ be $c(i)$. Then we have,
+    $$
+    \begin{aligned}
+    \sum_{i = 1}^n c(i) & = \sum_{i = 1}^{\left\lceil\lg n\right\rceil} 2^i + \sum_{i \leqslant n \text{ is not a power of } 2} 1 \\ & \leqslant \sum_{i = 1}^{\left\lceil\lg n\right\rceil} 2^i + n \\ & = 2^{1 + \left\lceil\lg n\right\rceil} - 1 + n \\ & \leqslant 2n - 1 + n \\ & \leqslant 3n \in O(n).
+    \end{aligned}
+    $$
 
-$$
-\begin{aligned}
-\sum_{i = 1}^n c(i) & = \sum_{i = 1}^{\left\lceil\lg n\right\rceil} 2^i + \sum_{i \leqslant n \text{ is not a power of } 2} 1 \\ & \leqslant \sum_{i = 1}^{\left\lceil\lg n\right\rceil} 2^i + n \\ & = 2^{1 + \left\lceil\lg n\right\rceil} - 1 + n \\ & \leqslant 2n - 1 + n \\ & \leqslant 3n \in O(n).
-\end{aligned}
-$$
+    To find the average, we divide by $n$, and the amortized cost per operation is $O(1)$.
+  </Callout>
+</Callout>
 
-To find the average, we divide by $n$, and the amortized cost per operation is $O(1)$.
+### Exercise 2
 
-### Exercise 2 (CLRS 17.2-2)
+<Callout title="CLRS 17.2-2" variant="exercise">
+  使用**核算法**确定每个操作的摊还代价。
 
-> 使用核算法确定每个操作的摊还代价。
+  <Callout variant="answer" defaultOpen={true}>
+    Let $c_i =$ cost of $i\th$ operation.
+    $$
+    c_i = \begin{cases} i & \text{if $i$ is an exact power of $2$}, \\ 1 & \text{otherwise}. \end{cases}
+    $$
 
-**Solution**: Let $c_i =$ cost of $i\th$ operation.
-$$
-c_i = \begin{cases} i & \text{if $i$ is an exact power of $2$}, \\ 1 & \text{otherwise}. \end{cases}
-$$
+    Charge $3$ (amortized cost $\hat c_i$) for each operation.
 
-Charge $3$ (amortized cost $\hat c_i$) for each operation.
+    - If $i$ is not an exact power of 2, pay $1$, and store $2$ as credit.
+    - If $i$ is an exact power of 2, pay $i$, using stored credit.
 
-- If $i$ is not an exact power of 2, pay $1$, and store $2$ as credit.
-- If $i$ is an exact power of 2, pay $i$, using stored credit.
+    $$
+    \begin{array}{cccc} \textbf{Operation} & \textbf{Cost} & \textbf{Actual cost} & \textbf{Credit remaining} \\ \hline 1 & 3 & 1 & 2 \\ 2 & 3 & 2 & 3 \\ 3 & 3 & 1 & 5 \\ 4 & 3 & 4 & 4 \\ 5 & 3 & 1 & 6 \\ 6 & 3 & 1 & 8 \\ 7 & 3 & 1 & 10 \\ 8 & 3 & 8 & 5 \\ 9 & 3 & 1 & 7 \\ 10 & 3 & 1 & 9 \\ \vdots & \vdots & \vdots & \vdots \end{array}
+    $$
 
-$$
-\begin{array}{cccc} \textbf{Operation} & \textbf{Cost} & \textbf{Actual cost} & \textbf{Credit remaining} \\ \hline 1 & 3 & 1 & 2 \\ 2 & 3 & 2 & 3 \\ 3 & 3 & 1 & 5 \\ 4 & 3 & 4 & 4 \\ 5 & 3 & 1 & 6 \\ 6 & 3 & 1 & 8 \\ 7 & 3 & 1 & 10 \\ 8 & 3 & 8 & 5 \\ 9 & 3 & 1 & 7 \\ 10 & 3 & 1 & 9 \\ \vdots & \vdots & \vdots & \vdots \end{array}
-$$
+    Since the amortized cost is $3$ per operation, $\sum\limits_{i = 1}^n \hat c_i = 3n$.
 
-Since the amortized cost is $3$ per operation, $\sum\limits_{i = 1}^n \hat c_i = 3n$.
+    We know from Exercise 1 that $\sum\limits_{i = 1}^n \hat c_i < 3n$.
 
-We know from Exercise 1 that $\sum\limits_{i = 1}^n \hat c_i < 3n$.
+    Then we have
 
-Then we have
+    $$
+    \sum_{i = 1}^n \hat c_i \geqslant \sum_{i = 1}^n c_i \Rightarrow \text{credit} = \text{amortized cost} - \text{actual cost} \geqslant 0.
+    $$
 
-$$
-\sum_{i = 1}^n \hat c_i \geqslant \sum_{i = 1}^n c_i \Rightarrow \text{credit} = \text{amortized cost} - \text{actual cost} \geqslant 0.
-$$
+    Since the amortized cost of each operation is $O(1)$, and the amount of credit never goes negative, the total cost of $n$ operations is $O(n)$.
+  </Callout>
+</Callout>
 
-Since the amortized cost of each operation is $O(1)$, and the amount of credit never goes negative, the total cost of $n$ operations is $O(n)$.
+### Exercise 3
 
-### Exercise 3 (CLRS 17.3-2)
+<Callout title="CLRS 17.3-2" variant="exercise">
+  使用**势能法**确定每个操作的摊还代价。
 
-> 使用**势能法**确定每个操作的摊还代价。
+  <Callout variant="answer" defaultOpen={true}>
+    Define the potential function $\Phi(D_0) = 0$, and $\Phi(D_i) = 2i - 2^{1 + \lfloor \lg i \rfloor}$ for $i > 0$. For operation 1,
 
-**Solution**: Define the potential function $\Phi(D_0) = 0$, and $\Phi(D_i) = 2i - 2^{1 + \lfloor \lg i \rfloor}$ for $i > 0$. For operation 1,
+    $$
+    \begin{aligned}\hat c_i &= c_i + \Phi(D_i) - \Phi(D_{i - 1}) \\ &= 1 + 2i - 2^{1+ \lfloor \lg i \rfloor} - 0 \\ &= 1.\end{aligned}
+    $$
 
-$$
-\begin{aligned}\hat c_i &= c_i + \Phi(D_i) - \Phi(D_{i - 1}) \\ &= 1 + 2i - 2^{1+ \lfloor \lg i \rfloor} - 0 \\ &= 1.\end{aligned}
-$$
+    For operation $i(i > 1)$, if $i$ is not a power of 2, then
 
-For operation $i(i > 1)$, if $i$ is not a power of 2, then
+    $$
+    \begin{aligned}
+    \hat c_i &= c_i + \Phi(D_i) - \Phi(D_{i - 1}) \\ &= 1 + 2i - 2^{1 + \lfloor \lg 1 \rfloor} - (2(i - 1) - 2^{1 + \lfloor \lg(i - 1) \rfloor})\\ &= 3.
+    \end{aligned}
+    $$
 
-$$
-\begin{aligned}
-\hat c_i &= c_i + \Phi(D_i) - \Phi(D_{i - 1}) \\ &= 1 + 2i - 2^{1 + \lfloor \lg 1 \rfloor} - (2(i - 1) - 2^{1 + \lfloor \lg(i - 1) \rfloor})\\ &= 3.
-\end{aligned}
-$$
+    If $i = 2^j$ for some $j \in \mathbb N$, then
 
-If $i = 2^j$ for some $j \in \mathbb N$, then
+    $$
+    \begin{aligned}
+    \hat c_i &= c_i + \Phi(D_i) - \Phi(D_{i - 1}) \\ & = i + 2i - 2^{1 + j}-(2(i - 1) - 2^{1 + j - 1}) \\ &= i + 2i - 2i - 2i + 2 + i \\ &= 2.
+    \end{aligned}
+    $$
 
-$$
-\begin{aligned}
-\hat c_i &= c_i + \Phi(D_i) - \Phi(D_{i - 1}) \\ & = i + 2i - 2^{1 + j}-(2(i - 1) - 2^{1 + j - 1}) \\ &= i + 2i - 2i - 2i + 2 + i \\ &= 2.
-\end{aligned}
-$$
-
-Thus, the amortized cost is 3 per operation.
+    Thus, the amortized cost is 3 per operation.
+  </Callout>
+</Callout>
