@@ -2,7 +2,6 @@
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Link from '@/components/Link.astro'
 import PageHead from '@/components/PageHead.astro'
-// import ProjectCard from '@/components/ProjectCard.astro'
 import SkillLayout from '@/components/SkillLayout.astro'
 import Substats from '@/components/Substats.astro'
 import Timeline from '@/components/Timeline.astro'
@@ -15,9 +14,6 @@ import {
   MISC_SKILLS,
 } from '@/consts'
 import Layout from '@/layouts/Layout.astro'
-import { getAllProjects } from '@/lib/data-utils'
-
-const projects = await getAllProjects()
 ---
 
 <Layout class="max-w-3xl">
@@ -33,14 +29,6 @@ const projects = await getAllProjects()
           <li>Keep Learning & Be Creative</li>
         </ul>
       </div>
-
-      <!-- <h2 class="mb-4 text-2xl font-medium">Projects</h2>
-      <p class="prose prose-neutral dark:prose-invert mb-8">
-        Under construction...
-      </p>
-      <div class="flex flex-col gap-4">
-        {projects.map((project) => <ProjectCard project={project} />)}
-      </div> -->
 
       <article class="prose prose-neutral dark:prose-invert max-w-none">
         <h2 class="mb-4 text-2xl font-medium">Elsewhere</h2>
